@@ -14,6 +14,7 @@ const User = require('./models/User');
 
 // Routes
 const authRoutes = require('./routes/auth_routes');
+const publicRoutes = require('./routes/public_routes');
 
 // App
 const app = express();
@@ -63,6 +64,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use(authRoutes);
+app.use(publicRoutes);
 
 // 404
 app.use((req, res, next) => {
