@@ -1,0 +1,89 @@
+<%- include('../includes/header.ejs') %>
+<link rel="stylesheet" href="/css/dashboard.min.css">
+<!-- Empty script tag to fix Chromium's Blink bug - empty space is necessary! - https://lab.laukstein.com/bug/input -->
+<script> </script>
+</head>
+<body>
+<div class="dashboard">
+    <div class="auth">
+        <div class="auth-name">
+            <p>Logged in as: <b><%= locals.login || '?' %></b></p>
+        </div>
+        <form class="auth-form-button-logout" action="/logout" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+    <div class="stats">
+        <div class="stats-item">
+            <h5><%= channels_stats.total_channels %></h5>
+            <p>Total Channels</p>
+        </div>
+        <div class="stats-item">
+            <h5><%= channels_stats.total_online_channels %></h5>
+            <p>Online Channels</p>
+        </div>
+        <div class="stats-item">
+            <h5><%= channels_stats.total_offline_channels %></h5>
+            <p>Offline Channels</p>
+        </div>
+        <div class="stats-item">
+            <h5><%= channels_stats.total_partnered_channels %></h5>
+            <p>Partnered Channels</p>
+        </div>
+        <div class="stats-item">
+            <h5><%= channels_stats.total_viewers_count.toLocaleString() %></h5>
+            <p>Total Viewers</p>
+        </div>
+    </div>
+    <div class="panels">
+        <div class="panel">
+            <div class="search input-dark">
+                <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.0503 5.80761C12.7755 3.08232 17.2245 3.08232 19.9497 5.80761C22.675 8.53291 22.675 12.9818 19.9497 15.7071C18.7137 16.9431 17.1235 17.6114 15.4999 17.7262V18.3284L16.4142 19.2426V27.7279H13.5858V19.2426L14.5001 18.3284V17.7262C12.8765 17.6114 11.2863 16.9431 10.0503 15.7071C7.32496 12.9818 7.32496 8.53291 10.0503 5.80761ZM11.4645 7.22183C9.50347 9.18282 9.50347 12.3319 11.4645 14.2929C13.4255 16.2539 16.5745 16.2539 18.5355 14.2929C20.4965 12.3319 20.4965 9.18282 18.5355 7.22183C16.5745 5.26083 13.4255 5.26083 11.4645 7.22183Z" fill="white"/>
+                </svg>   
+                <input type="text" placeholder="Search to add a channel..." id="inputSearch">
+            </div>
+            <div class="results" id="searchResults">
+                <div class="results-overlay">
+                    <h1>(⊙_⊙)</h1>
+                    <p>Search to add channel</p>
+                </div>
+            </div>
+        </div>
+        <div class="panel">
+            <div class="search input-dark">
+                <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.0503 5.80761C12.7755 3.08232 17.2245 3.08232 19.9497 5.80761C22.675 8.53291 22.675 12.9818 19.9497 15.7071C18.7137 16.9431 17.1235 17.6114 15.4999 17.7262V18.3284L16.4142 19.2426V27.7279H13.5858V19.2426L14.5001 18.3284V17.7262C12.8765 17.6114 11.2863 16.9431 10.0503 15.7071C7.32496 12.9818 7.32496 8.53291 10.0503 5.80761ZM11.4645 7.22183C9.50347 9.18282 9.50347 12.3319 11.4645 14.2929C13.4255 16.2539 16.5745 16.2539 18.5355 14.2929C20.4965 12.3319 20.4965 9.18282 18.5355 7.22183C16.5745 5.26083 13.4255 5.26083 11.4645 7.22183Z" fill="white"/>
+                </svg>                        
+                <input type="text" placeholder="Search to remove a channel..." id="inputRemove">
+            </div>
+            <div class="results" id="removeResults">
+                <% if(channels_data.length !== 0) { %>
+                    <% for(let i = 0; i < channels_data.length; i++) { %>
+                        <div class="channel" data-channel-name="<%= channels_data[i].login %>">
+                            <div class="channel-image">
+                                <img loading="lazy" src="<%= channels_data[i].profile_image_url %>" alt="channel image">
+                            </div>
+                            <div class="channel-content">
+                                <h5><%= channels_data[i].display_name %></h5>
+                            </div>
+                            <form class="channel-form-button">
+                                <button>Remove</button>
+                            </form>
+                        </div>
+                    <% } %>
+                <% } else { %>
+                    <div class="results-overlay">
+                        <h1>(⊙_⊙)</h1>
+                        <p>No channels to remove</p>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../includes/footer.ejs') %>
+
+<script src="/js/dashboard.js"></script>
+</body>
+</html>
