@@ -1,6 +1,766 @@
 @import '_bp';
+@import '_nav';
 @import '_footer';
 
+// Header
+.header{
+    max-height: 100%;
+
+    margin-top: 4rem;
+
+    background: url('/images/header.jpg') center/cover no-repeat;
+    .header-image{
+        max-width: 55rem;
+
+        margin: 0rem auto 1.5rem auto;
+        padding: 10rem 2rem 0rem 2rem;
+        img{
+            width: 100%;
+        }
+    }
+    .header-text{
+        text-align: center;
+
+        padding: 0rem 2rem 10rem 2rem;
+        p{
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+    }
+}
+// Sections
+.sections{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    max-width: 102.4rem;
+
+    margin: 0rem auto;
+    padding: 0rem 2rem;
+    .section{
+        padding: 2rem;
+        
+        border-radius: 0.5rem;
+        background: $secondary-grey-color;
+        .section-title{
+            margin-bottom: 2rem;
+            h2{
+                font-weight: 600;
+                b{
+                    color: $primary-twitch-color;
+                    font-size: 1em;
+                }
+            }
+        }
+        .section-toolbar{
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 1rem;
+            
+            margin-bottom: 1rem;
+            .toolbar-input{
+                position: relative;
+
+                grid-column: 1/3;
+            }
+            .toolbar-buttons{
+                display: flex;
+                justify-content: flex-end;
+                gap: 1rem;
+
+                grid-row: 2/3;
+                grid-column: 2/3;
+                button{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    padding: 0.4rem 1rem;
+                    
+                    border: 2px solid transparent;
+                    border-radius: 0.5rem;
+                    background: $primary-grey-color;
+
+                    transition: border 300ms;
+                    svg{
+                        margin-right: 0.75rem;
+
+                        transition: all 300ms;
+                        path{
+                            fill: rgba(255, 255, 255, 0.5);
+
+                            transition: all 300ms;
+                        }
+                    }
+                    p{
+                        color: transparentize($color: white, $amount: 0.4);
+                    }
+                    &:hover{
+                        border-color: transparentize($color: white, $amount: 0.9);
+                    }
+                    &:disabled{
+                        cursor: no-drop;
+                        opacity: 0.5;
+                        &:hover{
+                            border-color: transparent;
+                        }
+                    }
+                }
+                .button-show-partners{
+                    &.enabled{
+                        border-color: $primary-twitch-color;
+                        svg{
+                            transform: rotate(360deg);
+                            path{
+                                fill: $primary-twitch-color;
+                            }
+                        }
+                        &:hover{
+                            border-color: $primary-twitch-color;
+                        }
+                    }
+                }
+                .button-sort-viewers{
+                    &.enabled{
+                        border-color: $primary-twitch-color;
+                        svg{
+                            transform: rotate(180deg);
+                            path{
+                                fill: $primary-twitch-color;
+                            }
+                        }
+                        &:hover{
+                            border-color: $primary-twitch-color;
+                        }
+                    }
+                }
+            }
+            .toolbar-change-views{
+                display: flex;
+                justify-content: flex-start;
+                gap: 1rem;
+
+                grid-row: 2/3;
+                grid-column: 1/2;
+                button{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 0.4rem 1rem;
+
+                    border: 2px solid transparent;
+                    border-radius: 0.5rem;
+                    background: $primary-grey-color;
+
+                    transition: border 300ms;
+                    svg{
+                        margin-right: 0.75rem;
+
+                        transition: all 300ms;
+                        rect{
+                            fill: rgba(255, 255, 255, 0.5);
+
+                            transition: all 300ms;
+                        }
+                    }
+                    p{
+                        font-weight: 500;
+                        color: rgba(255, 255, 255, 0.5);
+                    }
+                    &.active{
+                        border-color: $primary-twitch-color;
+                        svg{
+                            transform: rotate(360deg);
+
+                            transition: all 300ms;
+                            rect{
+                                fill: $primary-twitch-color;
+                            }
+                        }
+                        &:hover{
+                            border-color: $primary-twitch-color;
+                        }
+                    }
+                    &:hover{
+                        border-color: rgba(255, 255, 255, 0.1);
+                    }
+                    &:disabled{
+                        cursor: no-drop;
+                        opacity: 0.5;
+
+                        border-color: transparent;
+                        &:hover{
+                            border-color: transparent;
+                        }
+                    }
+                }
+            }
+        }
+        .section-content{
+            display: grid;
+            grid-template-columns: auto;
+            .no-channels-overlay{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+
+                width: 100%;
+                height: 30rem;
+
+                padding: 2rem;
+
+                border-radius: 0.5rem;
+                background: $primary-grey-color;
+                h1{
+                    margin-bottom: 1rem;
+
+                    opacity: 0.5;
+                }
+                p{
+                    opacity: 0.5;
+
+                    font-size: 1.6rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+            }
+            .channel-live-view{
+                display: none;
+            }
+            .channels-list{
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+
+                overflow-y: auto;
+                max-height: 55rem;
+                &.reverse{
+                    flex-direction: column-reverse;
+                }
+                &::-webkit-scrollbar {
+                    width: 2rem;
+                    height: 1rem;
+                }
+                &::-webkit-scrollbar-thumb {
+                    background: $primary-twitch-color;
+                    border-left: 1rem solid $secondary-grey-color;
+                }
+                &::-webkit-scrollbar-thumb:hover{
+                    background: darken($color: $primary-twitch-color, $amount: 5%);
+                }
+                &::-webkit-scrollbar-track{
+                    background: $primary-grey-color;
+                    border-left: 1rem solid $secondary-grey-color;
+                }
+                .channel{
+                    display: grid;
+                    grid-template-columns: auto 1fr auto;
+                    grid-gap: 1rem;
+
+                    padding: 0.6rem 1.5rem 0.6rem 0.6rem;
+
+                    background: $primary-grey-color;
+                    border-radius: 0.5rem;
+                    &.hidden, &.hide{
+                        display: none;
+                    }
+                    .channel-overlay{
+                        display: none;
+                    }
+                    .channel-thumbnail{
+                        display: none;
+                    }
+                    .channel-image{
+                        margin: 0rem 0.5rem;
+                        a{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            height: 100%;
+                            
+                            border-radius: 50%;
+                            img{
+                                max-width: 6.8rem;
+                                max-height: 6.8rem;
+                                
+                                padding: 0.2rem;
+
+                                border-radius: 50%;
+                                border: 2px solid transparent;
+                                transition: border 300ms;
+                                &:hover{
+                                    border-color: $primary-twitch-color;
+                                }
+                            }
+                        }
+                    }
+                    .channel-content{
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        .username{
+                            display: flex;
+                            align-items: center;
+
+                            margin-bottom: 0.1rem;
+                            a{
+                                h5{
+                                    font-weight: 600;
+                                    &:hover{
+                                        text-decoration: underline;
+                                        text-decoration-color: $secondary-twitch-color;
+                                    }
+                                }
+                            }
+                            svg{
+                                margin-left: 0.5rem;
+
+                                fill: $secondary-twitch-color;
+                            }
+                        }
+                        .title{
+                            h6{
+                                max-height: 1.7rem;
+
+                                font-weight: 500;
+
+                                overflow: hidden;
+                                white-space: wrap;
+                            }
+                        }
+                        .game{
+                            max-height: 1.8rem;
+
+                            overflow: hidden;
+                            white-space: wrap;
+                            a{
+                                color: $secondary-twitch-color;
+                                &:hover{
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+                    .channel-viewer-count{
+                        display: flex;
+                        align-items: center;
+                        svg{
+                            fill: $light-red-color;
+                        }
+                        p{
+                            font-weight: 500;
+                            color: $light-red-color;
+                        }
+                    }
+                }
+            }
+            &.show-channel-live-view{
+                .channel-live-view{
+                    position: relative;
+                    display: initial;
+
+                    padding-top: 56.25%;
+                    margin-bottom: 2rem;
+                    
+                    overflow: hidden;
+                    .stream-embed{
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+
+                        width: 100%;
+                        height: 100%;
+
+                        border-radius: 0.5rem;
+                    }
+                }
+                .channels-list{
+                    flex-direction: row;
+                    gap: 1rem;
+
+                    max-height: initial;
+
+                    overflow: initial;
+                    overflow-x: auto;
+
+                    border-radius: 0.5rem;
+                    &.reverse{
+                        flex-direction: row-reverse;
+                    }
+                    &::-webkit-scrollbar {
+                        width: 3rem;
+                        height: 3rem;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background: $primary-twitch-color;
+                        border-top: 2rem solid $secondary-grey-color;
+                        border-left: initial;
+                    }
+                    &::-webkit-scrollbar-thumb:hover{
+                        background: darken($color: $primary-twitch-color, $amount: 5%);
+                    }
+                    &::-webkit-scrollbar-track{
+                        background: $primary-grey-color;
+                        border-top: 2rem solid $secondary-grey-color;
+                    }
+                    .channel{
+                        position: relative;
+                        .channel-overlay{
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+    
+                            display: initial;
+    
+                            width: 100%;
+                            height: 100%;
+                            
+                            cursor: pointer;
+                            border: 2px solid transparent;
+                            border-radius: 0.5rem;
+
+                            transition: border 300ms;
+                            &:hover{
+                                border-color: rgba(255, 255, 255, 0.1);
+                            }
+                            &.active{
+                                border-color: $primary-twitch-color;
+                                &:hover{
+                                    border-color: $primary-twitch-color;
+                                }
+                            }
+                        }
+                        .channel-thumbnail{
+                            display: initial;
+                            img{
+                                width: 120px;
+                                height: 60px;
+    
+                                border-radius: 0.5rem;
+                            }
+                        }
+                        .channel-image{
+                            display: none;
+                        }
+                        .channel-content{
+                            .username{
+                                a{
+                                    h5{
+                                        max-width: 13rem;
+    
+                                        text-overflow: ellipsis;
+                                        overflow: hidden;
+                                        white-space: nowrap; 
+                                    }
+                                }
+                            }
+                            .title{
+                                h6{
+                                    max-width: 13rem;
+    
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap; 
+                                }
+                            }
+                            .game{
+                                max-width: 13rem;
+    
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap; 
+                            }
+                        }
+                    }
+                }
+            }
+            &.min{
+                display: grid;
+                grid-template-columns: auto;
+                .channels-list{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-gap: 1rem;
+
+                    max-height: initial;
+                    
+                    overflow: initial;
+                    .channel{
+                        padding: 0.6rem;
+                        .channel-image{
+                            a{
+                                img{
+                                    height: 5.8rem;
+                                    width: 5.8rem;
+                                }
+                            }
+                        }
+                        .channel-content{
+                            .username{
+                                a{
+                                    h5{
+                                        max-width: 20rem;
+
+                                        font-size: 1.6rem;
+                                        text-overflow: ellipsis;
+                                        overflow: hidden;
+                                        white-space: nowrap;
+                                    }
+                                }
+                            }
+                            .title{
+                                h6{
+                                    font-size: 1.4rem;
+                                    color: $secondary-twitch-color;
+                                }
+                            }
+                        }
+                    }
+                    button{
+                        grid-column: 1/4;
+                    }
+                }
+            }
+        }
+    }
+}
+// Footer
 .footer{
     max-width: 102.4rem;
+    
+    padding-top: 2rem;
+}
+
+// Laptop
+@media(max-width: 1000px) {
+    .sections{
+        .section{
+            .section-content{
+                &.min{
+                    .channels-list{
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        .channel{
+                            padding: 0.75rem;
+                            .channel-image{
+                                margin: 0rem 0.25rem;
+                                a{
+                                    img{
+                                        height: 5rem;
+                                        width: 5rem;
+                                    }
+                                }
+                            }
+                            .channel-content{
+                                .username{
+                                    a{
+                                        h5{
+                                            max-width: 20rem;
+    
+                                            font-size: 1.6rem;
+                                            text-overflow: ellipsis;
+                                            overflow: hidden;
+                                            white-space: nowrap;
+                                        }
+                                    }
+                                }
+                                .title{
+                                    h6{
+                                        font-size: 1.4rem;
+                                        color: $secondary-twitch-color;
+                                    }
+                                }
+                            }
+                        }
+                        button{
+                            grid-column: 1/3;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// Tablet
+@media(max-width: 768px) {
+    // Sections
+    .sections{
+        gap: 1rem;
+
+        padding: 0rem 1rem;
+        .section{
+            padding: 1rem;
+            .section-title{
+                margin-bottom: 1rem;
+                h2{
+                    font-size: 2.7rem;
+                }
+            }
+            .section-content{
+                &.show-channel-live-view{
+                    .channel-live-view{
+                        margin-bottom: 1rem;
+                    }
+                    .channels-list{
+                        gap: 0.5rem;
+                        .channel{
+                            padding: 0.75rem 1rem 0.75rem 0.75rem;
+                            .channel-thumbnail{
+                                margin: auto 0rem;
+                                img{
+                                    width: 100px;
+                                    height: 50px;
+                                }
+                            }
+                            .channel-content{
+                                .username{
+                                    a{
+                                        h5{
+                                            max-width: 10rem;
+
+                                            font-size: 1.6rem;
+                                        }
+                                    }
+                                    svg{
+                                        width: 1.2rem;
+                                        height: 1.2rem;
+                                    }
+                                }
+                                .title{
+                                    h6{
+                                        max-width: 12rem;
+                                        
+                                        font-size: 1.2rem;
+                                    }
+                                }
+                                .game{
+                                    max-width: 10rem;
+                                    a{
+                                        font-size: 1.2rem;
+                                    }
+                                }
+                            }
+                            .channel-viewer-count{
+                                svg{
+                                    height: 1.4rem;
+                                    width: 1.4rem;
+                                }
+                                p{
+                                    font-size: 1.2rem;
+                                }
+                            }
+                        }
+                    }
+                }
+                &.min{
+                    .channels-list{
+                        grid-template-columns: 1fr;
+                        grid-gap: 0.5rem;
+                        button{
+                            grid-column: 1/2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Footer
+    .footer{
+        padding-top: 1rem;
+    }
+}
+// Small Tablet
+@media(max-width: 555px) {
+    .header{
+        margin-top: 0rem;
+        .header-image{
+            padding-top: 5rem;
+        }
+        .header-text{
+            padding-bottom: 5rem;
+        }
+    }
+    .sections{
+        .section{
+            .section-toolbar{
+                .toolbar-input{
+                    grid-column: 1/3;
+                }
+                .toolbar-buttons{
+                    grid-row: 2/3;
+                    grid-column: 1/3;
+                    button{
+                        width: 100%;
+                    }
+                }
+                .toolbar-change-views{
+                    grid-row: 3/3;
+                    grid-column: 1/3;
+                    button{
+                        width: 100%;
+                    }
+                }
+            }
+            .section-content{
+                .channels-list{
+                    .channel{
+                        grid-gap: 0.5rem;
+    
+                        padding: 0.5rem 1rem 0.5rem 0.5rem;
+                        .channel-image{
+                            margin: 0rem 0.5rem;
+                            a{
+                                height: 100%;
+                                img{
+                                    max-width: 4.5rem;
+                                    max-height: 4.5rem;
+                                }
+                            }
+                        }
+                        .channel-content{
+                            .username{
+                                a{
+                                    h5{
+                                        font-size: 1.6rem;
+                                    }
+                                }
+                                svg{
+                                    width: 1.2rem;
+                                    height: 1.2rem;
+
+                                    margin-left: 0.25rem;
+                                }
+                            }
+                            .title{
+                                h6{
+                                    max-height: 1.5rem;
+                                    font-size: 1.2rem;
+                                }
+                            }
+                            .game{
+                                max-height: 1.7rem;
+                                a{
+                                    font-size: 1.2rem;
+                                }
+                            }
+                        }
+                        .channel-viewer-count{
+                            svg{
+                                height: 1.4rem;
+                                width: 1.4rem;
+                            }
+                            p{
+                                font-size: 1.2rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

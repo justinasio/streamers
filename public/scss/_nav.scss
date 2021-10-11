@@ -1,0 +1,110 @@
+.nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    width: 100%;
+    height: 4rem;
+
+    background: $primary-twitch-color;
+    .nav-list{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 2rem;
+
+        max-width: 102.4rem;
+        height: 100%;
+    
+        padding: 0rem 4rem;
+        margin: 0 auto;
+        .list-item{
+            .item-link{
+                padding-bottom: 0.95rem;
+                font-weight: 500;
+
+                border-bottom: 2px solid transparent;
+
+                transition: border 300ms;
+                &:hover{
+                    border-color: white;
+                }
+            }
+        }
+    }
+    .nav-hamburger-menu{
+        display: none;
+    }
+}
+
+@media(max-width: 555px) {
+    .nav{
+        width: 0rem;
+        height: 0rem;
+    
+        background: transparent;
+        .nav-list{
+            display: none;
+        }
+        .nav-hamburger-menu{
+            position: fixed;
+            bottom: 5rem;
+            right: 5rem;
+            z-index: 10;
+
+            display: initial;
+            button{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                padding: 0.5rem;
+
+                border-radius: 0.5rem;
+                background: rgba(0, 0, 0, 0.25);
+                svg{
+                    width: 4.5rem;
+                    height: 4.5rem;
+                }
+            }
+            .button-menu{
+                display: flex;
+            }
+            .button-close{
+                display: none;
+            }
+        }
+        &.open{
+            height: 100%;
+            width: 100%;
+
+            background: rgba(0, 0, 0, 0.5);
+            .nav-list{
+                position: fixed;
+                bottom: 0;
+                z-index: 5;
+
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+                align-items: flex-start;
+
+                width: 100%;
+                height: 23rem;
+
+                padding: 2rem 8rem 2.5rem 4rem;
+
+                background: $primary-twitch-color;
+            }
+            .nav-hamburger-menu{
+                .button-close{
+                    display: flex;
+                }
+                .button-menu{
+                    display: none;
+                }
+            }
+        }
+    }
+}

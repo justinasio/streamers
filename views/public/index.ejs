@@ -1,10 +1,381 @@
 <%- include('../includes/header.ejs') %>
     <link rel="stylesheet" href="/css/style.min.css">
+    <!-- Load carousel css if there are atleast 3 online channels -->
+    <% if(channels_data.online_channels.length >= 3) { %>
+        <link rel="stylesheet" href="/css/carousel.min.css">
+    <% } %>
     <!-- Empty script tag to fix Chromium's Blink bug - empty space is necessary! - https://lab.laukstein.com/bug/input -->
     <script> </script>
 </head>
 <body>
+    <!-- Navigation -->
+    <%- include('../includes/nav.ejs') %>
+    <header class="header"> 
+        <div class="header-image">
+            <img loading="lazy" src="/images/mid-logo.svg" alt="website logo" draggable="false">
+        </div>
+        <div class="header-text">
+            <p>A PLACE TO FIND YOUR NEW FAVORITE STREAMER</p>
+        </div>
+        <!-- Carousel -->
+        <% if(channels_data.online_channels.length >= 3) {%>
+            <div class="carousel" id='carousel'>
+                <div class="carousel-item left" id="carouselItem">
+                    <div class="prevent-click"></div>
+                    <div class="content">
+                        <div class="name">
+                            <h1><%= channels_data.online_channels[1].display_name %></h1>
+                            <% if(channels_data.online_channels[1].broadcaster_type === 'partner') { %>
+                                <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z"></path>
+                                </svg>
+                            <% } %>
+                        </div>
+                        <div class="title">
+                            <h4><%= channels_data.online_channels[1].title %></h4>
+                        </div>
+                        <div class="viewer-count">
+                            <svg width="20px" height="20px" viewBox="0 0 20 20" x="0px" y="0px">
+                                <g><path fill-rule="evenodd" d="M5 7a5 5 0 116.192 4.857A2 2 0 0013 13h1a3 3 0 013 3v2h-2v-2a1 1 0 00-1-1h-1a3.99 3.99 0 01-3-1.354A3.99 3.99 0 017 15H6a1 1 0 00-1 1v2H3v-2a3 3 0 013-3h1a2 2 0 001.808-1.143A5.002 5.002 0 015 7zm5 3a3 3 0 110-6 3 3 0 010 6z" clip-rule="evenodd"></path></g>
+                            </svg>
+                            <h4><%= channels_data.online_channels[1].viewer_count.toLocaleString() %></h4>
+                        </div>
+                    </div>
+                    <div class="watch">
+                        <a href="https://www.twitch.tv/<%= channels_data.online_channels[1].login %>" target="_blank" rel="noreferrer">
+                            <svg class="play-icon" viewBox="0 0 55 63" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M52.5 27.3109C55.8333 29.2354 55.8333 34.0466 52.5 35.9711L7.5 61.9519C4.16667 63.8764 -2.81811e-06 61.4708 -2.64986e-06 57.6218L-3.78552e-07 5.66026C-2.10307e-07 1.81126 4.16667 -0.594376 7.5 1.33012L52.5 27.3109Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <img loading="lazy" class="thumbnail-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_<%= channels_data.online_channels[1].login %>-640x360.jpg" alt="channel thumbnail">
+                </div>
+                <div class="carousel-item center enabled" id="carouselItem">
+                    <div class="prevent-click"></div>
+                    <div class="content">
+                        <div class="name">
+                            <h1><%= channels_data.online_channels[0].display_name %></h1>
+                            <% if(channels_data.online_channels[0].broadcaster_type === 'partner') { %>
+                                <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z"></path>
+                                </svg>
+                            <% } %>
+                        </div>
+                        <div class="title">
+                            <h4><%= channels_data.online_channels[0].title %></h4>
+                        </div>
+                        <div class="viewer-count">
+                            <svg width="20px" height="20px" viewBox="0 0 20 20" x="0px" y="0px">
+                                <g><path fill-rule="evenodd" d="M5 7a5 5 0 116.192 4.857A2 2 0 0013 13h1a3 3 0 013 3v2h-2v-2a1 1 0 00-1-1h-1a3.99 3.99 0 01-3-1.354A3.99 3.99 0 017 15H6a1 1 0 00-1 1v2H3v-2a3 3 0 013-3h1a2 2 0 001.808-1.143A5.002 5.002 0 015 7zm5 3a3 3 0 110-6 3 3 0 010 6z" clip-rule="evenodd"></path></g>
+                            </svg>
+                            <h4><%= channels_data.online_channels[0].viewer_count.toLocaleString() %></h4>
+                        </div>
+                    </div>
+                    <div class="watch">
+                        <a href="https://www.twitch.tv/<%= channels_data.online_channels[0].login %>" target="_blank" rel="noreferrer">
+                            <svg class="play-icon" viewBox="0 0 55 63" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M52.5 27.3109C55.8333 29.2354 55.8333 34.0466 52.5 35.9711L7.5 61.9519C4.16667 63.8764 -2.81811e-06 61.4708 -2.64986e-06 57.6218L-3.78552e-07 5.66026C-2.10307e-07 1.81126 4.16667 -0.594376 7.5 1.33012L52.5 27.3109Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <img loading="lazy" class="thumbnail-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_<%= channels_data.online_channels[0].login %>-640x360.jpg" alt="channel thumbnail">
+                </div>
+                <div class="carousel-item right" id="carouselItem">
+                    <div class="prevent-click"></div>
+                    <div class="content">
+                        <div class="name">
+                            <h1><%= channels_data.online_channels[2].display_name %></h1>
+                            <% if(channels_data.online_channels[2].broadcaster_type === 'partner') { %>
+                                <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z"></path>
+                                </svg>
+                            <% } %>
+                        </div>
+                        <div class="title">
+                            <h4><%= channels_data.online_channels[2].title %></h4>
+                        </div>
+                        <div class="viewer-count">
+                            <svg width="20px" height="20px" viewBox="0 0 20 20" x="0px" y="0px">
+                                <g><path fill-rule="evenodd" d="M5 7a5 5 0 116.192 4.857A2 2 0 0013 13h1a3 3 0 013 3v2h-2v-2a1 1 0 00-1-1h-1a3.99 3.99 0 01-3-1.354A3.99 3.99 0 017 15H6a1 1 0 00-1 1v2H3v-2a3 3 0 013-3h1a2 2 0 001.808-1.143A5.002 5.002 0 015 7zm5 3a3 3 0 110-6 3 3 0 010 6z" clip-rule="evenodd"></path></g>
+                            </svg>
+                            <h4><%= channels_data.online_channels[2].viewer_count.toLocaleString() %></h4>
+                        </div>
+                    </div>
+                    <div class="watch">
+                        <a href="https://www.twitch.tv/<%= channels_data.online_channels[2].login %>" target="_blank" rel="noreferrer">
+                            <svg class="play-icon" viewBox="0 0 55 63" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M52.5 27.3109C55.8333 29.2354 55.8333 34.0466 52.5 35.9711L7.5 61.9519C4.16667 63.8764 -2.81811e-06 61.4708 -2.64986e-06 57.6218L-3.78552e-07 5.66026C-2.10307e-07 1.81126 4.16667 -0.594376 7.5 1.33012L52.5 27.3109Z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <img loading="lazy" class="thumbnail-image" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_<%= channels_data.online_channels[2].login %>-640x360.jpg" alt="channel thumbnail">
+                </div>
+            </div>
+        <% } %>
+    </header>
+    <!-- Sections -->
+    <div class="sections">
+        <!-- Online section -->
+        <section class="section" id="onlineSection">
+            <div class="section-title">
+                <h2># Online - <b><%= channels_data.online_channels.length %></b></h2>
+            </div>
+            <!-- Toolbar -->
+            <div class="section-toolbar">
+                <div class="toolbar-input">
+                    <div class="input-dark">
+                        <svg width="24" height="24" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.0503 5.80761C12.7755 3.08232 17.2245 3.08232 19.9497 5.80761C22.675 8.53291 22.675 12.9818 19.9497 15.7071C18.7137 16.9431 17.1235 17.6114 15.4999 17.7262V18.3284L16.4142 19.2426V27.7279H13.5858V19.2426L14.5001 18.3284V17.7262C12.8765 17.6114 11.2863 16.9431 10.0503 15.7071C7.32496 12.9818 7.32496 8.53291 10.0503 5.80761ZM11.4645 7.22183C9.50347 9.18282 9.50347 12.3319 11.4645 14.2929C13.4255 16.2539 16.5745 16.2539 18.5355 14.2929C20.4965 12.3319 20.4965 9.18282 18.5355 7.22183C16.5745 5.26083 13.4255 5.26083 11.4645 7.22183Z" fill="white"/>
+                        </svg>                        
+                        <input type="text" placeholder="Search for online channel..."  id="inputSearchChannel" <%= channels_data.online_channels.length !== 0 ? '' : 'disabled' %>>
+                    </div>
+                </div>
+                <div class="toolbar-buttons">
+                    <button class="button-show-partners" id="buttonShowPartners" <%= channels_data.online_channels.length !== 0 ? '' : 'disabled' %>>
+                        <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z" fill="#9146FF"/>
+                        </svg>                            
+                        <p>Partners</p>
+                    </button>
+                    <button class="button-sort-viewers" id="buttonSortViewers" <%= channels_data.online_channels.length !== 0 ? '' : 'disabled' %>>
+                        <svg width="14" height="14" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16.4142 0.585786C15.6332 -0.195262 14.3668 -0.195262 13.5858 0.585786L0.857863 13.3137C0.0768146 14.0948 0.0768146 15.3611 0.857863 16.1421C1.63891 16.9232 2.90524 16.9232 3.68629 16.1421L15 4.82843L26.3137 16.1421C27.0948 16.9232 28.3611 16.9232 29.1421 16.1421C29.9232 15.3611 29.9232 14.0948 29.1421 13.3137L16.4142 0.585786ZM17 42L17 2L13 2L13 42L17 42Z" fill="black"/>
+                        </svg>                                              
+                        <p>Viewers</p>
+                    </button>
+                </div>
+                <div class="toolbar-change-views">
+                    <button class="<%= channels_data.online_channels.length > 0 ? 'active': '' %>" id="buttonListView" <%= channels_data.online_channels.length !== 0 ? '' : 'disabled' %>>
+                        <svg width="14" height="14" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect y="80" width="110" height="30" rx="5" fill="white"/>
+                            <rect y="40" width="110" height="30" rx="5" fill="white"/>
+                            <rect width="110" height="30" rx="5" fill="white"/>
+                        </svg>                                                     
+                        <p>List View</p>
+                    </button>
+                    <button id="buttonLiveView" <%= channels_data.online_channels.length !== 0 ? '' : 'disabled' %>>
+                        <svg width="14" height="14" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect y="80" width="30" height="30" rx="5" fill="white"/>
+                            <rect x="40" y="80" width="30" height="30" rx="5" fill="white"/>
+                            <rect x="80" y="80" width="30" height="30" rx="5" fill="white"/>
+                            <rect width="110" height="70" rx="5" fill="white"/>
+                        </svg>
+                        <p>Live View</p>
+                    </button>
+                </div>
+            </div>
+            <div class="section-content" id="sectionContent">
+                <% if(channels_data.online_channels.length !== 0) { %>
+                    <div class="channel-live-view">
+                        <iframe
+                            data-default-channel-name="<%= channels_data.online_channels[0].login %>"
+                            data-host="<%= process.env.WEBSITE_URL %>"
+                            loading="lazy"
+                            class="stream-embed"
+                            id="iframeStream"
+                            scrolling="no"
+                            frameborder="0"
+                            allow="autoplay; fullscreen"
+                            title="Twitch iframe player">
+                        </iframe>
+                    </div>
+                    <div class="channels-list" id="onlineChannelsList">
+                        <% for(let i = 0; i < channels_data.online_channels.length; i++) { %>
+                            <div class="channel" data-channel-name="<%= channels_data.online_channels[i].login %>">
+                                <div class="channel-overlay <%= i === 0 ? "active" : "" %>"></div>
+                                <div class="channel-thumbnail">
+                                    <img loading="lazy" src="https://static-cdn.jtvnw.net/previews-ttv/live_user_<%= channels_data.online_channels[i].login %>-120x60.jpg" alt="channel thumbnail" draggable="false">
+                                </div>
+                                <div class="channel-image">
+                                    <a href="https://www.twitch.tv/<%= channels_data.online_channels[i].login %>" target="_blank" rel="noreferrer">
+                                        <img loading="lazy" src="<%= channels_data.online_channels[i].profile_image_url %>" alt="channel image" draggable="false">
+                                    </a>
+                                </div>
+                                <div class="channel-content">
+                                    <div class="username">
+                                        <a href="https://www.twitch.tv/<%=channels_data.online_channels[i].login %>" target="_blank" rel="noreferrer"><h5><%= channels_data.online_channels[i].display_name %></h5></a>
+                                        <% if(channels_data.online_channels[i].broadcaster_type === 'partner') { %>
+                                            <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z"></path>
+                                            </svg>
+                                        <% } %>
+                                    </div>
+                                    <div class="title">
+                                        <h6><%= channels_data.online_channels[i].title %></h6>
+                                    </div>
+                                    <div class="game">
+                                        <a href="https://www.twitch.tv/directory/game/<%= channels_data.online_channels[i].game_name %>" target="_blank" rel="noreferrer"><%= channels_data.online_channels[i].game_name %></a>
+                                    </div>
+                                </div>
+                                <div class="channel-viewer-count">
+                                    <svg width="20px" height="20px" viewBox="0 0 20 20" x="0px" y="0px">
+                                        <g><path fill-rule="evenodd" d="M5 7a5 5 0 116.192 4.857A2 2 0 0013 13h1a3 3 0 013 3v2h-2v-2a1 1 0 00-1-1h-1a3.99 3.99 0 01-3-1.354A3.99 3.99 0 017 15H6a1 1 0 00-1 1v2H3v-2a3 3 0 013-3h1a2 2 0 001.808-1.143A5.002 5.002 0 015 7zm5 3a3 3 0 110-6 3 3 0 010 6z" clip-rule="evenodd"></path></g>
+                                    </svg>
+                                    <p><%= channels_data.online_channels[i].viewer_count.toLocaleString() %></p>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                <% } else {%>
+                    <div class="no-channels-overlay">
+                        <h1>¯\_(ツ)_/¯</h1>
+                        <p>None of the channels are live</p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+        <!-- Offline section -->
+        <section class="section" id="offlineSection">
+            <div class="section-title">
+                <h2># Offline - <b><%= channels_data.offline_channels.length %></b></h2>
+            </div>
+            <div class="section-content min">
+                <% if(channels_data.offline_channels.length !== 0) { %>
+                    <div class="channels-list" id="offlineChannelsList">
+                        <% for(let i = 0; i < channels_data.offline_channels.length; i++) { %>
+                            <div class="channel <%= i >= 12 ? 'hide' : '' %>" data-channel-name="<%= channels_data.offline_channels[i].login %>">
+                                <div class="channel-image">
+                                    <a href="https://www.twitch.tv/<%= channels_data.offline_channels[i].login %>" target="_blank" rel="noreferrer">
+                                        <img loading="lazy" src="<%= channels_data.offline_channels[i].profile_image_url %>" alt="channel image" draggable="false">
+                                    </a>
+                                </div>
+                                <div class="channel-content">
+                                    <div class="username">
+                                        <a href="https://www.twitch.tv/<%=channels_data.offline_channels[i].login %>" target="_blank" rel="noreferrer"><h5><%= channels_data.offline_channels[i].display_name %></h5></a>
+                                        <% if(channels_data.offline_channels[i].broadcaster_type === 'partner') { %>
+                                            <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z"></path>
+                                            </svg>
+                                        <% } %>
+                                    </div>
+                                    <div class="title">
+                                        <h6>Offline</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                        <% if(channels_data.offline_channels.length > 12) { %>
+                            <button class="button-dark" id="buttonOfflineChannels">Show More</button>
+                        <% } %>
+                    </div>
+                <% } else {%>
+                    <div class="no-channels-overlay">
+                        <h1>(●'◡'●)</h1>
+                        <p>None of the channels are offline</p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+        <!-- Partnered section -->
+        <section class="section" id="partneredSection">
+            <div class="section-title">
+                <h2># Partnered - <b><%= channels_data.partnered_channels.length %></b></h2>
+            </div>
+            <div class="section-content min" id="sectionContent">
+                <% if(channels_data.partnered_channels.length !== 0) { %>
+                    <div class="channels-list" id="partneredChannelsList">
+                        <% for(let i = 0; i < channels_data.partnered_channels.length; i++) { %>
+                            <div class="channel <%= i >= 12 ? 'hide' : '' %>" data-channel-name="<%= channels_data.partnered_channels[i].login %>">
+                                <div class="channel-image">
+                                    <a href="https://www.twitch.tv/<%= channels_data.partnered_channels[i].login %>" target="_blank" rel="noreferrer">
+                                        <img loading="lazy" src="<%= channels_data.partnered_channels[i].profile_image_url %>" alt="channel image" draggable="false">
+                                    </a>
+                                </div>
+                                <div class="channel-content">
+                                    <div class="username">
+                                        <a href="https://www.twitch.tv/<%=channels_data.partnered_channels[i].login %>" target="_blank" rel="noreferrer"><h5><%= channels_data.partnered_channels[i].display_name %></h5></a>
+                                        <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z"></path>
+                                        </svg>
+                                    </div>
+                                    <div class="title">
+                                        <h6>Partner</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                        <% if(channels_data.partnered_channels.length > 12) { %>
+                            <button class="button-dark" id="buttonPartneredChannels">Show More</button>
+                        <% } %>
+                    </div>
+                <% } else {%>
+                    <div class="no-channels-overlay">
+                        <h1>(⌐■_■)</h1>
+                        <p>None of the channels are partnered</p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+        <!-- Most Followed -->
+        <section class="section" id="mostFollowedSection">
+            <div class="section-title">
+                <h2># Most Followed - <b><%= channels_data.most_followed_channels.length %></b></h2>
+            </div>
+            <div class="section-content min">
+                <% if(channels_data.most_followed_channels.length !== 0) { %>
+                    <div class="channels-list" id="mostFollowedChannelsList">
+                        <% for(let i = 0; i < channels_data.most_followed_channels.length; i++) { %>
+                            <div class="channel <%= i >= 12 ? 'hide' : '' %>" data-channel-name="<%= channels_data.most_followed_channels[i].login %>">
+                                <div class="channel-image">
+                                    <a href="https://www.twitch.tv/<%= channels_data.most_followed_channels[i].login %>" target="_blank" rel="noreferrer">
+                                        <img loading="lazy" src="<%= channels_data.most_followed_channels[i].profile_image_url %>" alt="channel image" draggable="false">
+                                    </a>
+                                </div>
+                                <div class="channel-content">
+                                    <div class="username">
+                                        <a href="https://www.twitch.tv/<%=channels_data.most_followed_channels[i].login %>" target="_blank" rel="noreferrer"><h5><%= channels_data.most_followed_channels[i].display_name %></h5></a>
+                                        <% if(channels_data.most_followed_channels[i].broadcaster_type === 'partner') { %>
+                                            <svg width="14" height="14" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M35 5L20 0L5 5L0 20L5 35L20 40L35 35L40 20L35 5ZM16.6669 30L31.6667 15L26.6667 10L16.6669 20L11.6667 15L6.66667 20L16.6669 30Z"></path>
+                                            </svg>
+                                        <% } %>
+                                    </div>
+                                    <div class="title">
+                                        <h6>♥ <%=channels_data.most_followed_channels[i].followers.toLocaleString() %></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        <% } %>
+                        <% if(channels_data.most_followed_channels.length > 12) { %>
+                            <button class="button-dark" id="buttonMostFollowedChannels">Show More</button>
+                        <% } %>
+                    </div>
+                <% } else {%>
+                    <div class="no-channels-overlay">
+                        <h1>(⊙_⊙;)</h1>
+                        <p>None of the channels are followed</p>
+                    </div>
+                <% } %>
+            </div>
+        </section>
+    </div>
 
     <%- include('../includes/footer.ejs') %>
+
+    <!-- Load navigation functionality -->
+    <script src="/js/nav.js"></script>
+
+    <!-- Load carousel.js if there are atleast 3 online channels -->
+    <% if(channels_data.online_channels.length >= 3) { %>
+        <script src="/js/carousel.js"></script>
+    <% } %>
+
+    <!-- Load toolbar.js if there is atleast 1 live channel -->
+    <% if(channels_data.online_channels.length > 0) { %>
+        <script src="/js/toolbar.js"></script>
+    <% } %>
+
+    <!-- Load offline_streamers.js if there are atleast 12 offline channels-->
+    <% if(channels_data.offline_channels.length > 12) { %>
+        <script src="/js/load_offline_channels.js"></script>
+    <% } %>
+    <!-- Load partnered_streamers.js if there are atleast 12 partnered channels-->
+    <% if(channels_data.partnered_channels.length > 12) { %>
+        <script src="/js/load_partnered_channels.js"></script>
+    <% } %>
+    <!-- Load most_followed_streamers.js if there are atleast 12 followed channels-->
+    <% if(channels_data.most_followed_channels.length > 12) { %>
+        <script src="/js/load_most_followed_channels.js"></script>
+    <% } %>
 </body>
 </html>
