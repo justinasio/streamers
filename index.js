@@ -64,6 +64,13 @@ app.use((req, res, next) => {
 // Routes
 app.use(authRoutes);
 
+// 404
+app.use((req, res, next) => {
+    res.status(404).render('error/404', {
+        page_title: 'Not found',
+    });
+});
+
 // When connected to a database -- start the application
 mongoose.connect(process.env.MONGODB_URI, {
     useCreateIndex: true,

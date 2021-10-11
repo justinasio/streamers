@@ -1,0 +1,49 @@
+@import '_bp';
+
+.content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    height: 100vh;
+    width: 100%;
+    h1{
+        font-weight: 500;
+        font-size: 20rem;
+    }
+    h2{
+        margin-top: 2.5rem;
+
+        color: $secondary-twitch-color;
+        font-weight: 500;
+        font-size: 6rem;
+    }
+    p{
+        margin-top: 5rem;
+
+        font-size: 1.6rem;
+        a{
+            color: $secondary-twitch-color;
+            text-decoration: underline;
+            text-underline-offset: 0.25rem;
+        }
+    }
+}
+
+@media(max-width: 550px) {
+    .content{
+        padding: 1rem;
+        h1{
+            font-size: 10rem;
+        }
+        h2{
+            margin-top: 1.25rem;
+            font-size: 3rem;
+        }
+        p{
+            margin-top: 2.5rem;
+        }
+    }
+}
