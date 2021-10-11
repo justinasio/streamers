@@ -8,6 +8,9 @@ const jwt = require('jsonwebtoken');
 const compression = require('compression');
 const helmet = require('helmet');
 
+// Models
+const Twitch = require('./models/Twitch');
+
 // App
 const app = express();
 
@@ -30,6 +33,13 @@ mongoose.connect(process.env.MONGODB_URI, {
 });
 mongoose.connection.on('open', async () => {
     console.log('Connected to Mongoose');
+
+    // Store channels data locally on boot
+    await Twitch.storeChannelsData();
+    // After that store channels data every 3 minutes
+    setInterval(async () => {
+        await Twitch.storeChannelsData();
+    }, 1000 * 60 * 3);
 
     app.listen(process.env.PORT || 3000);
 });
