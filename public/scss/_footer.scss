@@ -1,0 +1,63 @@
+@import '_colors';
+
+.footer{
+    max-width: 100%;
+
+    margin: 0rem auto 2rem auto;
+    .footer-content{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+
+        margin: 0rem 2rem;
+        padding: 1.5rem 2rem;
+
+        border-radius: 0.5rem;
+        background: $secondary-grey-color;
+        .content-title{
+            text-align: start;
+        }
+        .content-auth{
+            text-align: center;
+            a{
+                color: white;
+                &:hover{
+                    color: $secondary-twitch-color;
+                    text-decoration: underline;
+                }
+            }
+        }
+        .content-description{
+            text-align: end;
+            p{
+                a{
+                    color: $secondary-twitch-color;
+                    font-weight: 500;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
+@media(max-width: 768px){
+    .footer{
+        margin: 0rem auto 1rem auto;
+        .footer-content{
+            grid-template-columns: 1fr;
+
+            margin: 0rem 1rem;
+            .content-title, .content-auth, .content-description{
+                text-align: center;
+            }
+            .content-auth{
+                margin: 1rem 0rem;
+                padding: 1rem 0rem;
+
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+        }
+    }
+}

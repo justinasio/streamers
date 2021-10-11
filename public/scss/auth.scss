@@ -1,0 +1,149 @@
+@import '_bp';
+
+.card-auth{
+    max-width: 40rem;
+
+    padding: 2rem;
+    margin: 5rem auto 0rem auto;
+
+    background: $secondary-grey-color;
+    border-radius: 0.5rem;
+    .auth-image{
+        max-width: 20rem;
+
+        margin: 2rem auto 4rem auto;
+        img{
+            max-width: 100%;
+        }
+    }
+    .auth-nav{
+        display: flex;
+        align-items: center;
+        
+        padding-bottom: 0.5rem;
+
+        border-bottom: 2px solid $primary-grey-color;
+        li{
+            margin: 0rem 1rem;
+            &.active{
+                a{
+                    color: $secondary-twitch-color;
+                    border-bottom: 2px solid $secondary-twitch-color;
+                }
+            }
+            &:first-child{
+                margin-left: 0rem;
+            }
+            &:last-child{
+                margin-right: 0rem;
+            }
+            a{
+                padding-bottom: 0.65rem;
+                
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+        }
+    }
+    .auth-form{
+        margin-top: 2rem;
+        .form-item{
+            display: flex;
+            flex-direction: column;
+            
+            margin: 1rem 0rem;
+            label{
+                margin-bottom: 0.5rem;
+            }
+            input{
+                padding: 0.5rem 1rem;
+
+                width: 100%;
+
+                border-radius: 0.5rem;
+                border: 2px solid transparent;
+                background: $primary-grey-color;
+
+                transition: border 300ms;
+                &:hover{
+                    border-color: rgba(255, 255, 255, 0.1);
+                }
+                &:active, &:focus{
+                    border-color: $primary-twitch-color;
+                }
+                &:disabled{
+                    cursor: no-drop;
+                    
+                    opacity: 0.5;
+                    transition: none;
+                    &:hover, &:active, &:focus{
+                        border-color: transparent;
+                    }
+                }
+            }
+            p{
+                margin-top: 0.5rem;
+
+                font-size: 1.3rem;
+                color: $light-red-color;
+
+                animation: hideMessage 800ms forwards;
+                &.hide{
+                    display: none;
+                }
+            }
+        }
+        .form-button{
+            margin-top: 2rem;
+            button{
+                width: 100%;
+
+                padding: 1rem 2.5rem;
+
+                border-radius: 0.5rem;
+                background: $primary-twitch-color;
+
+                transition: background 300ms;
+                &:hover{
+                    background: $secondary-twitch-color;
+                }
+                &:disabled{
+                    cursor: no-drop;
+            
+                    opacity: 0.5;
+                    
+                    transition: none;
+                    &:hover{
+                        background: $primary-twitch-color;
+                    }
+                }
+            }
+            p{
+                text-align: center;
+                
+                margin-top: 0.5rem;
+
+                font-size: 1.3rem;
+                color: $light-red-color;
+
+                animation: hideMessage 800ms forwards;
+                &.hide{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@keyframes hideMessage{
+    0%{
+        display: none;
+        opacity: 0;
+    }
+    1%{
+        display: initial;
+    }
+    100%{
+        opacity: 1;
+    }
+}

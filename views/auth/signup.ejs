@@ -1,0 +1,39 @@
+<%- include('../includes/header.ejs') %>
+    <link rel="stylesheet" href="/css/auth.min.css">
+</head>
+<body>
+    <div class="card-auth">
+        <div class="auth-image">
+            <img src="/images/mid-logo.svg" alt="website logo" draggable="false">
+        </div>
+        <ul class="auth-nav">
+            <li class="nav-item"><a class="item-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="item-link" href="/login">Login</a></li>
+            <li class="nav-item active"><a class="item-link" href="/signup">Signup</a></li>
+        </ul>
+        <form class="auth-form" id="formAuth">
+            <div class="form-item">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="inputUsername">
+                <p class="hide" id="paragraphUsername"></p>
+            </div>
+            <div class="form-item">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="inputPassword">
+                <p class="hide" id="paragraphPassword"></p>
+            </div>
+            <div class="form-item">
+                <label for="repeatPassword">Repeat Password</label>
+                <input type="password" name="repeatPassword" id="inputRepeatPassword">
+                <p class="hide" id="paragraphRepeatPassword"></p>
+            </div>
+            <div class="form-button">
+                <button id="buttonRegister" disabled>Register</button>
+                <p class="hide" id="paragraphButton"></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="/js/signup.js"></script>
+</body>
+</html>

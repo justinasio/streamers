@@ -1,0 +1,143 @@
+@import '_colors';
+@import '_fonts';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-size: 10px;
+    font-family: 'Inter', 'sans-serif';
+
+    color: white;
+
+    scroll-behavior: smooth;
+    scroll-margin-top: 5rem;
+}
+body{
+    overflow-x: hidden;
+
+    background: $primary-grey-color;
+}
+p, a, label, input, button{
+    font-size: 1.4rem;
+    line-height: 2rem;
+    b, a{
+        font-size: 1em;
+    }
+}
+h1{
+    font-size: 4.2rem;
+}
+h2{
+    font-size: 3.7rem;
+}
+h3{
+    font-size: 2.9rem;
+}
+h4{
+	font-size: 2.3rem;
+}
+h5{
+	font-size: 1.8rem;
+}
+h6{
+    font-size: 1.4rem;
+}
+a{
+    text-decoration: none;
+}
+ul{
+    list-style: none;
+    border: none;
+    outline: none;
+}
+button{
+    cursor: pointer;
+    border: none;
+    outline: none;
+
+    background: none;
+}
+input{
+    border: none;
+    outline: none;
+
+    background: none;
+}
+
+.input-dark{
+    position: relative;
+    &.enabled{
+        svg{
+            transform: rotate(45deg);
+            path{
+                fill: $secondary-twitch-color;
+            }
+        }
+        input{
+            border-color: $primary-twitch-color;
+            &:hover{
+                border-color: $primary-twitch-color;
+            }
+        }
+    }
+    svg{
+        position: absolute;
+        bottom: 1rem;
+        left: 1.1rem;
+
+        width: 2.4rem;
+        height: 2.4rem;
+
+        transition: all 300ms;
+        path{
+            fill: rgba(255, 255, 255, 0.5);
+        }
+    }
+    input{
+        width: 100%;
+
+        padding: 1rem 2rem 1rem 4rem;
+    
+        font-weight: 500;
+        border: 2px solid transparent;
+        border-radius: 0.5rem;
+        background: $primary-grey-color;
+    
+        transition: border 300ms;
+        &::placeholder{
+            color: rgba(255, 255, 255, 0.5);
+        }
+        &:hover{
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        &:focus, &:active{
+            border-color: $primary-twitch-color;
+        }
+        &:disabled{
+            cursor: no-drop;
+            opacity: 0.5;
+            &:hover{
+                border-color: transparent;
+            }
+        }
+    }
+}
+.button-dark{
+    padding: 0.6rem 1rem;
+
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    background: $primary-grey-color;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+
+    transition: border 300ms;
+    &:hover{
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    &:focus, &:active{
+        border-color: $primary-twitch-color;
+    }
+}

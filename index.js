@@ -10,6 +10,10 @@ const helmet = require('helmet');
 
 // Models
 const Twitch = require('./models/Twitch');
+const User = require('./models/User');
+
+// Routes
+const authRoutes = require('./routes/auth_routes');
 
 // App
 const app = express();
@@ -23,6 +27,42 @@ app.use(helmet({ contentSecurityPolicy: false }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use(express.static('public'));
+
+// Authenticate user
+app.use((req, res, next) => {
+    // No cookie = not logged in
+    if (!req.cookies.auth_token) {
+        res.locals.isLoggedIn = false;
+        return next();
+    }
+    const token = req.cookies.auth_token;
+
+    // Verify JWT token
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+        // Invalid cookie = not logged in
+        if (err) {
+            res.locals.isLoggedIn = false;
+            res.clearCookie('auth_token');
+            return next();
+        }
+
+        // Find a user
+        const findUser = await User.findOne({ _id: decoded._id });
+
+        if (!findUser) return next();
+
+        res.locals.isLoggedIn = true;
+        res.locals.permissions = findUser.permissions;
+        res.locals.login = findUser.username;
+
+        next();
+    });
+});
+
+// Routes
+app.use(authRoutes);
 
 // When connected to a database -- start the application
 mongoose.connect(process.env.MONGODB_URI, {
